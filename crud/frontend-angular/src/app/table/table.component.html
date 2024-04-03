@@ -1,0 +1,47 @@
+<h1>Tabella Dati</h1>
+
+<button (click) = addMode()>Aggiungi</button>
+<div *ngIf = "showForm">
+    <label>First name:</label>
+<input type="text" [(ngModel)]="newEmployee.firstName" required/><br><br>
+    <label>Last name: </label>
+<input type="text" [(ngModel)]="newEmployee.lastName" required/><br><br>
+    <label>Birth date:</label>
+<input type="text" [(ngModel)]="newEmployee.birthDate" required/><br><br>
+    <label>Hire date:</label>
+<input type="text" [(ngModel)]="newEmployee.hireDate" required/><br><br>
+    <label>Gender:</label>
+<input type="text" [(ngModel)]="newEmployee.gender" required/><br><br>
+
+<button (click) = personAdd()>ADD</button>
+</div>
+
+<table *ngIf="data">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data._embedded.employees">
+            <td>{{ item.id }}</td>
+            <td>{{ item.firstName }}</td>
+            <td>{{ item.lastName }}</td>
+            <td>
+                <button (click) = 'deleteItem(item.id)'>Cancella</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<app-pagination
+[currentPage]="currentPage"
+(prevPage)="loadPreviousPage()"
+(nextPage)="loadNextPage()"
+(firstPage)="loadFirstPage()"
+(lastPage)="loadLastPage()">
+</app-pagination>
+
